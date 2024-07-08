@@ -5,11 +5,11 @@ const pool = require("../db");
 
 router.post("/insertItems", async (req, res) => {
     try {
-        const {bill_id, item_description, item_size, rate, quantity } = req.body;
+        const {bill_id, item_description, item_size, rate, quantity ,status} = req.body;
 
         const newItem = await pool.query(
-            "INSERT INTO ordered_items (bill_id, item_description, item_size, rate, quantity_ordered) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-            [bill_id, item_description, item_size, rate, quantity]
+            "INSERT INTO ordered_items (bill_id, item_description, item_size, rate, quantity_ordered,status) VALUES ($1, $2, $3, $4, $5,$6) RETURNING *",
+            [bill_id, item_description, item_size, rate, quantity,status]
         );
 
         res.json(newItem.rows[0]);
